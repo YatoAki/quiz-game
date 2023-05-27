@@ -1,9 +1,18 @@
 
+
+export interface ChoicesState{
+    id: string;
+    value: string;
+}
+
 export interface QuizState{
     no: number;
     question: string | null;
     duration: number;
+    choices: ChoicesState[];
+    correctAnswer:string | null;
 }
+
 
 export interface SetNoAction{
     type: "setNo";
@@ -20,9 +29,19 @@ export interface SetDurationAction{
     payload: number;
 }
 
-type QuizAction = SetNoAction | SetQuestionAction | SetDurationAction;
+export interface SetChoicesAction{
+    type: "setChoices";
+    payload: ChoicesState[];
+}
 
-export const quizReducer = (state: QuizState = {no:0 , question:null, duration:0}, action: QuizAction): QuizState => {
+export interface SetCorrectAnswerAction{
+    type: "setCorrectAnswer";
+    payload: string;
+}
+
+type QuizAction = SetNoAction | SetQuestionAction | SetDurationAction | SetChoicesAction | SetCorrectAnswerAction;
+
+export const quizReducer = (state: QuizState = {no:0 , question:null, duration:0, choices:[], correctAnswer: null}, action: QuizAction): QuizState => {
     switch(action.type){
         case "setNo":
             return{
@@ -35,6 +54,14 @@ export const quizReducer = (state: QuizState = {no:0 , question:null, duration:0
         case "setDuration":
             return{
                 ...state,duration: action.payload,
+            }
+        case "setChoices":
+            return{
+                ...state,choices: action.payload,
+            }
+        case "setCorrectAnswer":
+            return{
+                ...state, correctAnswer: action.payload
             }
         default:
             return state  
