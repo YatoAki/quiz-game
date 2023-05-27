@@ -16,9 +16,29 @@
 body{
     margin: 0;
     font-family: 'Prompt', sans-serif;
+    background-color: var(--white);
+    color: var(--primaryColor);
 }
 
-a,input{
+h1{
+    font-size: var(--heading);
+}
+
+h2{
+    font-size: var(--subHeading);
+}
+
+p{
+    font-size: var(--paragraph);
+    font-weight: 400;
+}
+
+a,input, button{
     font-family: inherit;
+    color: inherit;
+}
+
+input::placeholder {
+    font-size: inherit;
     color: inherit;
 }

@@ -1,0 +1,48 @@
+.Home{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.Home h1{
+    color: var(--secondaryColor);
+}
+
+.Home .centerIcon{
+    font-size: 100px;
+    margin: 5vh 0;
+}
+
+.Home p{
+    font-size: var(--smallText);
+    text-align: center;
+}
+
+.inputArea{
+    background-color: var(--primaryColor);
+    display: flex;
+    border-radius: 5px;
+}
+
+.inputArea input{
+    background-color: transparent;
+    border: none;
+    padding: 10px 15px;
+    color: var(--white);
+    font-size: var(--smallText);
+}
+
+.inputArea input:focus{
+    outline: none;
+}
+
+.inputArea button{
+    background-color: var(--green);
+    font-size: var(--smallText);
+    color: var(--white);
+    border: none;
+    padding: 0 20px;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+}
