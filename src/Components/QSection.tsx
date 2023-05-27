@@ -30,7 +30,7 @@ const QSection: React.FC = () => {
     useEffect(()=> {
         dispatch(setQuestion(dataFile[currentQuestion].question))
         dispatch(setNo(currentQuestion))
-        dispatch(setDuration(60))
+        dispatch(setDuration(10))
         dispatch(setChoices(dataFile[currentQuestion].choices))
         dispatch(setCorrectAnswer(dataFile[currentQuestion].correct_answer))
     },[currentQuestion, dispatch])
@@ -45,6 +45,21 @@ const QSection: React.FC = () => {
             clearTimeout(timer);
         };
     },[questionData.duration, dispatch])
+
+    useEffect(() => {
+        if (questionData.duration < 0) {
+          handleQuestionSkip();
+        }
+    }, [questionData.duration]);
+      
+    
+    const handleQuestionSkip = () => {
+        if (currentQuestion < length - 1) {
+          setCurrentQuestion(currentQuestion + 1);
+        } else {
+          navigator("/result");
+        }
+    };
 
     const handleAnswer = (e: React.MouseEvent<HTMLLIElement>) => {
         if (delay) {
@@ -71,7 +86,7 @@ const QSection: React.FC = () => {
           }
           setDelay(false)
         }, 500);
-      };
+    };
       
 
     return(
