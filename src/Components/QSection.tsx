@@ -7,29 +7,22 @@ import { setQuestion,setDuration, setNo, setChoices, setCorrectAnswer } from "..
 import { useSelector } from "react-redux";
 import { RootState } from "../reducers";
 import { ChoicesState } from "../reducers/quizReducer";
+import { useNavigate } from "react-router-dom";
+import "./QSection.css"
 
-type Question = {
-    id: string;
-    question: string;
-    choices: ChoicesState[];
-    correct_answer: string;
-};
-
-type QuestionData = Question[];
-  
 
 const QSection: React.FC = () => {
 
-    const [data, setData] = useState<QuestionData | null>()
-    const [length, setLength] = useState<number | null>()
+    const [length, setLength] = useState<number>(0)
     const [currentQuestion, setCurrentQuestion ] = useState<number>(0)
     const questionData = useSelector((state:RootState) => state.quizReducer )
+    const [delay, setDelay] = useState<boolean>(false)
 
     const dispatch = useDispatch()
+    const navigator = useNavigate()
 
     // Fetch the data from data.json
     useEffect(()=> {
-        setData(dataFile)
         setLength(dataFile.length)
     },[])
 
@@ -40,7 +33,7 @@ const QSection: React.FC = () => {
         dispatch(setDuration(60))
         dispatch(setChoices(dataFile[currentQuestion].choices))
         dispatch(setCorrectAnswer(dataFile[currentQuestion].correct_answer))
-    },[currentQuestion])
+    },[currentQuestion, dispatch])
 
     // Start the timer
     useEffect(()=> {
@@ -51,24 +44,50 @@ const QSection: React.FC = () => {
         return () => {
             clearTimeout(timer);
         };
-    },[questionData.duration])
+    },[questionData.duration, dispatch])
+
+    const handleAnswer = (e: React.MouseEvent<HTMLLIElement>) => {
+        if (delay) {
+            return;
+        }
+        const targetElement = e.target as HTMLLIElement;
+        const secondSpan = targetElement.querySelector('span:nth-child(2)');
+      
+        if (secondSpan){
+            if (targetElement.getAttribute("data-key") === questionData.correctAnswer) {
+                secondSpan.textContent = "😎";
+                targetElement.classList.add("true");
+            }else {
+                secondSpan.textContent = "😖";
+                targetElement.classList.add("false");
+            }
+        }
+        setDelay(true)
+        setTimeout(() => {
+          if (currentQuestion < length - 1) {
+            setCurrentQuestion(currentQuestion + 1);
+          }else{
+            navigator("/result")
+          }
+          setDelay(false)
+        }, 500);
+      };
+      
 
     return(
         <div className="QSection">
             <div className="header">
-                <h2>Question {questionData.no}/{length}</h2>
-                <div className="timer">{questionData.duration}</div>
+                <h2>Question {questionData.no + 1}/{length}</h2>
+                <p className="timer">{questionData.duration}</p>
             </div>
-            <h3>{questionData.question}</h3>
-            <ul>
-                {questionData.choices ? questionData.choices.map((data:ChoicesState) => {
+            <p className="question">{questionData.question}</p>
+            <ul className="choices">
+                {questionData.choices ? questionData.choices.map((data:ChoicesState, index:number) => {
                     return(
-                        <li key={data.id}>{data.value}</li>
+                        <li key={data.id} data-key={data.id} onClick={handleAnswer}><span>{index+1}. {data.value}</span> <span></span></li>
                     )
                 }): null}
             </ul>
-            <h4>{questionData.correctAnswer}</h4>
-            <button onClick={()=> setCurrentQuestion(currentQuestion+1)}>Next</button>
         </div>
     )
 } 
