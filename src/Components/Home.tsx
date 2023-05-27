@@ -3,10 +3,12 @@ import "./Home.css"
 import { setName } from "../actions/index";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [username,setUsername] = useState("")
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)
@@ -15,6 +17,7 @@ const Home: React.FC = () => {
     const handleStart = () => {
         if (username){
             dispatch(setName(username))
+            navigate("./questions")
         }
     }
     

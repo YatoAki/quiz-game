@@ -1,6 +1,6 @@
 
 export interface QuizState{
-    no: number | null;
+    no: number;
     question: string | null;
     duration: number;
 }
@@ -22,7 +22,7 @@ export interface SetDurationAction{
 
 type QuizAction = SetNoAction | SetQuestionAction | SetDurationAction;
 
-export const quizReducer = (state: QuizState = {no:null , question:null, duration:0}, action: QuizAction): QuizState => {
+export const quizReducer = (state: QuizState = {no:0 , question:null, duration:0}, action: QuizAction): QuizState => {
     switch(action.type){
         case "setNo":
             return{
