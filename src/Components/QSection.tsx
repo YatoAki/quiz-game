@@ -3,7 +3,7 @@ import React from "react";
 import {useState, useEffect} from "react"
 import dataFile from "../data.json"
 import { useDispatch } from "react-redux";
-import { setQuestion,setDuration, setNo, setChoices, setCorrectAnswer, increaseScore, increaseTotalDuration, startQuiz, finishQuiz} from "../actions";
+import { setQuestion,setDuration, setNo, setChoices, setCorrectAnswer, increaseScore, increaseTotalDuration, startQuiz, finishQuiz, resetScore, resetTotalDuration} from "../actions";
 import { useSelector } from "react-redux";
 import { RootState } from "../reducers";
 import { ChoicesState } from "../reducers/quizReducer";
@@ -25,6 +25,8 @@ const QSection: React.FC = () => {
     useEffect(()=> {
         setLength(dataFile.length)
         dispatch(startQuiz())
+        dispatch(resetScore())
+        dispatch(resetTotalDuration())
         // eslint-disable-next-line
     },[])
 

@@ -17,7 +17,7 @@ const Home: React.FC = () => {
     const handleStart = () => {
         if (username){
             dispatch(setName(username))
-            navigate("./questions")
+            navigate("/questions")
         }
     }
     

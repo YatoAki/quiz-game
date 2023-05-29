@@ -5,6 +5,7 @@ import { RootState } from "../reducers";
 import html2canvas from "html2canvas";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useNavigate } from "react-router";
 
 interface CustomStyle extends React.CSSProperties {
     "--value": number;
@@ -12,6 +13,7 @@ interface CustomStyle extends React.CSSProperties {
 const Result: React.FC = () => {
 
     const userData = useSelector((state: RootState) => state.userReducer)
+    const navigate = useNavigate()
 
     const handleSave = (): void => {
         const element: HTMLElement | null = document.getElementById("card");
@@ -40,6 +42,10 @@ const Result: React.FC = () => {
           });
         }
       };
+
+    const handleRetakeQuiz = () : void => {
+        navigate("/questions")
+    }
       
 
     return(
@@ -69,7 +75,7 @@ const Result: React.FC = () => {
             </div>
             <div className="controls">
                 <button onClick={handleSave}>Save as image</button>
-                <button>Retake the Quiz</button>
+                <button onClick={handleRetakeQuiz}>Retake the Quiz</button>
             </div>
             
         </div>
