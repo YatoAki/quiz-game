@@ -9,17 +9,24 @@ export interface SetNameAction {
     payload: string | null;
 }
   
-export interface SetScoreAction {
-    type: 'setScore';
-    payload: number;
+export interface ResetScoreAction {
+    type: 'resetScore';
 }
   
-export interface SetTotalDurationAction {
-    type: 'setTotalDuration';
+export interface ResetTotalDurationAction {
+    type: 'resetTotalDuration';
+}
+
+export interface IncreaseTotalDurationAction{
+    type:"increaseTotalDuration";
     payload: number;
 }
+
+export interface IncreaseScoreAction{
+    type: 'increaseScore';
+}
   
-type UserAction = SetNameAction | SetScoreAction | SetTotalDurationAction;
+type UserAction = SetNameAction | ResetScoreAction | ResetTotalDurationAction | IncreaseTotalDurationAction | IncreaseScoreAction;
   
 export const userReducer = (state: UserState = { name: null, score: 0, duration: 0 }, action: UserAction): UserState => {
     switch (action.type) {
@@ -28,16 +35,26 @@ export const userReducer = (state: UserState = { name: null, score: 0, duration:
           ...state,
           name: action.payload,
         };
-      case 'setScore':
+      case 'resetScore':
         return {
           ...state,
-          score: action.payload,
+          score: 0,
         };
-      case 'setTotalDuration':
+      case 'resetTotalDuration':
         return {
           ...state,
-          duration: action.payload,
+          duration: 0,
         };
+      case 'increaseTotalDuration':
+        return{
+          ...state,
+          duration: action.payload + state.duration
+        }
+      case 'increaseScore':
+        return{
+          ...state,
+          score: state.score + 1
+        }
       default:
         return state;
     }

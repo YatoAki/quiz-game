@@ -3,7 +3,7 @@ import React from "react";
 import {useState, useEffect} from "react"
 import dataFile from "../data.json"
 import { useDispatch } from "react-redux";
-import { setQuestion,setDuration, setNo, setChoices, setCorrectAnswer } from "../actions";
+import { setQuestion,setDuration, setNo, setChoices, setCorrectAnswer, IncreaseScore, IncreaseTotalDuration} from "../actions";
 import { useSelector } from "react-redux";
 import { RootState } from "../reducers";
 import { ChoicesState } from "../reducers/quizReducer";
@@ -17,6 +17,7 @@ const QSection: React.FC = () => {
     const [currentQuestion, setCurrentQuestion ] = useState<number>(0)
     const questionData = useSelector((state:RootState) => state.quizReducer )
     const [delay, setDelay] = useState<boolean>(false)
+    const user = useSelector((state: RootState) => state.userReducer)
 
     const dispatch = useDispatch()
     const navigator = useNavigate()
@@ -72,6 +73,7 @@ const QSection: React.FC = () => {
             if (targetElement.getAttribute("data-key") === questionData.correctAnswer) {
                 secondSpan.textContent = "😎";
                 targetElement.classList.add("true");
+                dispatch(IncreaseScore())
             }else {
                 secondSpan.textContent = "😖";
                 targetElement.classList.add("false");
@@ -103,6 +105,7 @@ const QSection: React.FC = () => {
                     )
                 }): null}
             </ul>
+            <h1>{user.score}</h1>
         </div>
     )
 } 
