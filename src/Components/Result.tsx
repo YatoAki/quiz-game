@@ -19,7 +19,7 @@ const Result: React.FC = () => {
             scale: 4,
             useCORS: true
           }).then(canvas => {
-            const fileName: string = "Quiz Achievement";
+            const fileName: string = "Quiz Achievement.png";
             canvas.toBlob(blob => {
               const file: File | null = new File([blob as Blob], fileName, { type: "image/png" });
               if (navigator.share && (navigator.platform === 'iPhone' || navigator.platform === 'iPad')) {
