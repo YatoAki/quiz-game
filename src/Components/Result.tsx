@@ -21,11 +21,11 @@ const Result: React.FC = () => {
                 </div>
                 <div className="progressContainer">
                     <div className="scoreProgress">
-                        <div className="radial-progress bg-[var(--primaryColor)] text-[var(--white)] border-4 border-[var(--primaryColor)]" style={{ "--value": 70} as CustomStyle}>70%</div>
+                        <div className="radial-progress bg-[var(--primaryColor)] text-[var(--white)] border-4 border-[var(--primaryColor)]" style={{ "--value": userData.score*10} as CustomStyle}>{userData.score}/10</div>
                         <h3>SCORE</h3>
                     </div>
                     <div className="timeProgress">
-                    <div className="radial-progress bg-[var(--primaryColor)] text-[var(--white)] border-4 border-[var(--primaryColor)]" style={{ "--value": 70 } as CustomStyle}>70%</div>
+                    <div className="radial-progress bg-[var(--primaryColor)] text-[var(--white)] border-4 border-[var(--primaryColor)]" style={{ "--value": userData.duration } as CustomStyle}>{userData.duration}s</div>
                         <h3>TIME</h3>
                     </div>
                 </div>
