@@ -17,7 +17,6 @@ const QSection: React.FC = () => {
     const [currentQuestion, setCurrentQuestion ] = useState<number>(0)
     const questionData = useSelector((state:RootState) => state.quizReducer )
     const [delay, setDelay] = useState<boolean>(false)
-    const user = useSelector((state: RootState) => state.userReducer)
 
     const dispatch = useDispatch()
     const navigator = useNavigate()
@@ -112,7 +111,6 @@ const QSection: React.FC = () => {
                     )
                 }): null}
             </ul>
-            <h1>{user.score} - {user.duration}</h1>
         </div>
     )
 } 

@@ -1,10 +1,6 @@
 .QSection{
     display: flex;
     flex-direction: column;
-    max-width:300px ;
-    width: 80vw;
-    margin: 0 auto;
-    height: 100vh;
 }
 
 .header{

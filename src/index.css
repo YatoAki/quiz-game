@@ -18,6 +18,10 @@ body{
     font-family: 'Prompt', sans-serif;
     background-color: var(--white);
     color: var(--primaryColor);
+    max-width:300px ;
+    width: 80vw;
+    margin: 0 auto;
+    height: 100vh;
 }
 
 h1{
@@ -46,4 +50,23 @@ a,input, button{
 input::placeholder {
     font-size: inherit;
     color: inherit;
+}
+
+@media  screen and (min-width: 800px) {
+
+    :root{
+        --heading:36px;
+        --subHeading:32px;
+        --paragraph:20px;
+        --smallText:16px;
+    }
+
+    body{
+        max-width:600px ;
+        width: 50vw;
+        margin: 0 auto;
+        height: 100vh;
+    }
+    
+    
 }
