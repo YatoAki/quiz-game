@@ -39,11 +39,11 @@ export const resetTotalDuration = (): ResetTotalDurationAction => ({
   type: 'resetTotalDuration'
 });
 
-export const IncreaseTotalDuration = (duration: number): IncreaseTotalDurationAction => ({
+export const increaseTotalDuration = (duration: number): IncreaseTotalDurationAction => ({
   type: 'increaseTotalDuration',
   payload: duration,
 });
 
-export const IncreaseScore = (): IncreaseScoreAction => ({
+export const increaseScore = (): IncreaseScoreAction => ({
   type: 'increaseScore'
 });

@@ -3,7 +3,7 @@ import React from "react";
 import {useState, useEffect} from "react"
 import dataFile from "../data.json"
 import { useDispatch } from "react-redux";
-import { setQuestion,setDuration, setNo, setChoices, setCorrectAnswer, IncreaseScore, IncreaseTotalDuration} from "../actions";
+import { setQuestion,setDuration, setNo, setChoices, setCorrectAnswer, increaseScore, increaseTotalDuration} from "../actions";
 import { useSelector } from "react-redux";
 import { RootState } from "../reducers";
 import { ChoicesState } from "../reducers/quizReducer";
@@ -57,6 +57,7 @@ const QSection: React.FC = () => {
     const handleQuestionSkip = () => {
         if (currentQuestion < length - 1) {
           setCurrentQuestion(currentQuestion + 1);
+          dispatch(increaseTotalDuration(questionData.duration + 1));
         } else {
           navigator("/result");
         }
@@ -76,12 +77,13 @@ const QSection: React.FC = () => {
             if (liElement.getAttribute("data-key") === questionData.correctAnswer) {
               secondSpan.textContent = "😎";
               liElement.classList.add("true");
-              dispatch(IncreaseScore());
+              dispatch(increaseScore());
             } else {
               secondSpan.textContent = "😖";
               liElement.classList.add("false");
             }
           }
+          dispatch(increaseTotalDuration(questionData.duration));
           setDelay(true);
           setTimeout(() => {
             if (currentQuestion < length - 1) {
@@ -110,7 +112,7 @@ const QSection: React.FC = () => {
                     )
                 }): null}
             </ul>
-            <h1>{user.score}</h1>
+            <h1>{user.score} - {user.duration}</h1>
         </div>
     )
 } 

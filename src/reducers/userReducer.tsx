@@ -48,7 +48,7 @@ export const userReducer = (state: UserState = { name: null, score: 0, duration:
       case 'increaseTotalDuration':
         return{
           ...state,
-          duration: action.payload + state.duration
+          duration: (10 - action.payload) + state.duration
         }
       case 'increaseScore':
         return{
