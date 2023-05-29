@@ -7,9 +7,6 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from "react-router";
 
-interface CustomStyle extends React.CSSProperties {
-    "--value": number;
-  }
 const Result: React.FC = () => {
 
     const userData = useSelector((state: RootState) => state.userReducer)
@@ -77,6 +74,7 @@ const Result: React.FC = () => {
                 <button onClick={handleSave}>Save as image</button>
                 <button onClick={handleRetakeQuiz}>Retake the Quiz</button>
             </div>
+            <a href="./">Back to home</a>
             
         </div>
     )

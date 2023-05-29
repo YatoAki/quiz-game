@@ -9,6 +9,10 @@
     color: var(--secondaryColor);
 }
 
+.Result a{
+    font-size: var(--smallText);
+}
+
 #card{
     display: flex;
     flex-direction: column;
@@ -64,6 +68,7 @@
     justify-content: space-between;
     max-width: 350px;
     width: 80vw;
+    margin-bottom: 20px;
 }
 
 .controls button{
@@ -73,6 +78,8 @@
     height: 40px;
     border-radius: 5px;
     color: var(--white);
+    border: none;
+    cursor: pointer;
 }
 
 .controls button:first-child{
