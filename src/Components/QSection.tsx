@@ -50,6 +50,7 @@ const QSection: React.FC = () => {
         if (questionData.duration < 0) {
           handleQuestionSkip();
         }
+        // eslint-disable-next-line
     }, [questionData.duration]);
       
     
