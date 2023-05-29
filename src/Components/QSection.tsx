@@ -64,31 +64,36 @@ const QSection: React.FC = () => {
 
     const handleAnswer = (e: React.MouseEvent<HTMLLIElement>) => {
         if (delay) {
-            return;
+          return;
         }
         const targetElement = e.target as HTMLLIElement;
-        const secondSpan = targetElement.querySelector('span:nth-child(2)');
+        const liElement = targetElement.closest('li');
       
-        if (secondSpan){
-            if (targetElement.getAttribute("data-key") === questionData.correctAnswer) {
-                secondSpan.textContent = "😎";
-                targetElement.classList.add("true");
-                dispatch(IncreaseScore())
-            }else {
-                secondSpan.textContent = "😖";
-                targetElement.classList.add("false");
+        if (liElement) {
+          const secondSpan = liElement.querySelector('span:nth-child(2)');
+      
+          if (secondSpan) {
+            if (liElement.getAttribute("data-key") === questionData.correctAnswer) {
+              secondSpan.textContent = "😎";
+              liElement.classList.add("true");
+              dispatch(IncreaseScore());
+            } else {
+              secondSpan.textContent = "😖";
+              liElement.classList.add("false");
             }
-        }
-        setDelay(true)
-        setTimeout(() => {
-          if (currentQuestion < length - 1) {
-            setCurrentQuestion(currentQuestion + 1);
-          }else{
-            navigator("/result")
           }
-          setDelay(false)
-        }, 500);
-    };
+          setDelay(true);
+          setTimeout(() => {
+            if (currentQuestion < length - 1) {
+              setCurrentQuestion(currentQuestion + 1);
+            } else {
+              navigator("/result");
+            }
+            setDelay(false);
+          }, 500);
+        }
+      };
+      
       
 
     return(
