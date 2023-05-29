@@ -2,6 +2,7 @@ export interface UserState {
     name: string | null;
     score: number;
     duration: number;
+    isQuiz: boolean;
 }
   
 export interface SetNameAction {
@@ -25,10 +26,18 @@ export interface IncreaseTotalDurationAction{
 export interface IncreaseScoreAction{
     type: 'increaseScore';
 }
+
+export interface startQuizAction{
+  type: 'startQuiz'
+}
+
+export interface finishQuizAction{
+  type: 'finishQuiz'
+}
   
-type UserAction = SetNameAction | ResetScoreAction | ResetTotalDurationAction | IncreaseTotalDurationAction | IncreaseScoreAction;
+type UserAction = SetNameAction | ResetScoreAction | ResetTotalDurationAction | IncreaseTotalDurationAction | IncreaseScoreAction | finishQuizAction | startQuizAction;
   
-export const userReducer = (state: UserState = { name: null, score: 0, duration: 0 }, action: UserAction): UserState => {
+export const userReducer = (state: UserState = { name: null, score: 0, duration: 0, isQuiz: false }, action: UserAction): UserState => {
     switch (action.type) {
       case 'setName':
         return {
@@ -54,6 +63,16 @@ export const userReducer = (state: UserState = { name: null, score: 0, duration:
         return{
           ...state,
           score: state.score + 1
+        }
+      case 'startQuiz':
+        return{
+          ...state,
+          isQuiz: true
+        }
+      case 'finishQuiz':
+        return{
+          ...state,
+          isQuiz: false
         }
       default:
         return state;

@@ -1,5 +1,5 @@
 import { SetNoAction, SetQuestionAction, SetDurationAction, SetChoicesAction, ChoicesState, SetCorrectAnswerAction } from '../reducers/quizReducer';
-import { SetNameAction, ResetScoreAction, ResetTotalDurationAction, IncreaseScoreAction, IncreaseTotalDurationAction } from '../reducers/userReducer';
+import { SetNameAction, ResetScoreAction, ResetTotalDurationAction, IncreaseScoreAction, IncreaseTotalDurationAction, startQuizAction, finishQuizAction } from '../reducers/userReducer';
 
 export const setNo = (no: number): SetNoAction => ({
   type: 'setNo',
@@ -46,4 +46,12 @@ export const increaseTotalDuration = (duration: number): IncreaseTotalDurationAc
 
 export const increaseScore = (): IncreaseScoreAction => ({
   type: 'increaseScore'
+});
+
+export const startQuiz = (): startQuizAction => ({
+  type: 'startQuiz'
+});
+
+export const finishQuiz = (): finishQuizAction => ({
+  type: 'finishQuiz'
 });

@@ -1,10 +1,14 @@
 import React from "react";
 import "./Result.css"
+import { useSelector } from "react-redux";
+import { RootState } from "../reducers";
 
 interface CustomStyle extends React.CSSProperties {
     "--value": number;
   }
 const Result: React.FC = () => {
+
+    const userData = useSelector((state: RootState) => state.userReducer)
 
     return(
         <div className="Result">
@@ -13,7 +17,7 @@ const Result: React.FC = () => {
             <div id="card">
                 <div className="cardHeader">
                     <h2>Congratulation!</h2>
-                    <p>Kaung Nay Lin Khant</p>
+                    <p>{userData.name}</p>
                 </div>
                 <div className="progressContainer">
                     <div className="scoreProgress">
