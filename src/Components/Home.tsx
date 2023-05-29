@@ -20,6 +20,12 @@ const Home: React.FC = () => {
             navigate("/questions")
         }
     }
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+          handleStart();
+        }
+    };
     
     return(
         <div className="Home">
@@ -34,6 +40,7 @@ const Home: React.FC = () => {
                     placeholder="Enter your name" 
                     value={username}
                     onChange={handleInputChange}
+                    onKeyDown={handleKeyPress}
                 />
                 <button onClick={handleStart}>START</button>
             </div>
