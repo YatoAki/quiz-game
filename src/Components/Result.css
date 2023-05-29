@@ -17,12 +17,15 @@
     margin: 20px 0;
     gap: 10px;
     font-size: var(--smallText);
-    border: 3px solid black;
     max-width: 360px;
     max-height: 360px;
     width: 80vw;
     height: 80vw;
     padding: 50px;
+    background-color: var(--white);
+    background-image: url("../assets/background.png");
+    background-size: cover;
+    background-position: center;
 }
 
 #card h2{
