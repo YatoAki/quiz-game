@@ -1,4 +1,4 @@
-# Quz Game
+# Quiz Game
 
 Answer a randomized set of questions and get an achievement card based on your score.
 
