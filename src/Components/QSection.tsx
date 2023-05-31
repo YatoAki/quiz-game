@@ -72,11 +72,11 @@ const QSection: React.FC = () => {
         dispatch(setChoices(questionList[currentQuestion].choices))
         dispatch(setCorrectAnswer(questionList[currentQuestion].correct_answer))
         // eslint-disable-next-line
-    },[currentQuestion])
+    },[currentQuestion,questionList])
 
-    useEffect(() => {
-    }, [questionData]);
-
+    useEffect(()=> {
+      console.log(questionList)
+    },[questionList])
     // Start the timer
     useEffect(()=> {
         const timer = setTimeout(() => {
