@@ -9,6 +9,10 @@ import { RootState } from "../reducers";
 import { ChoicesState } from "../reducers/quizReducer";
 import { useNavigate } from "react-router-dom";
 import "./QSection.css"
+import { Howl } from 'howler';
+import correctSoundFile from "../assets/correct.mp3"
+import wrongSoundFile from "../assets/wrong.mp3"
+
 
 interface Choice {
   id: string;
@@ -31,6 +35,12 @@ const QSection: React.FC = () => {
     const userData = useSelector((state: RootState) => state.userReducer)
     const [delay, setDelay] = useState<boolean>(false)
     const [questionList, setQuestionList] = useState<Question []>(dataFile)
+    const correctSound = new Howl({
+      src: [correctSoundFile]
+    })
+    const wrongSound = new Howl({
+      src: [wrongSoundFile]
+    })
 
     const dispatch = useDispatch()
     const navigator = useNavigate()
@@ -88,6 +98,7 @@ const QSection: React.FC = () => {
     
     const handleQuestionSkip = () => {
         dispatch(increaseTotalDuration(questionData.duration));
+        wrongSound.play()
         if (currentQuestion < length - 1) {
           setCurrentQuestion(currentQuestion + 1);
         } else {
@@ -108,10 +119,12 @@ const QSection: React.FC = () => {
       
           if (secondSpan) {
             if (liElement.getAttribute("data-key") === questionData.correctAnswer) {
+              correctSound.play()
               secondSpan.textContent = "😎";
               liElement.classList.add("true");
               dispatch(increaseScore());
             } else {
+              wrongSound.play()
               secondSpan.textContent = "😖";
               liElement.classList.add("false");
             }
