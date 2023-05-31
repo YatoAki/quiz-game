@@ -6,10 +6,12 @@ import html2canvas from "html2canvas";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from "react-router";
+import { useState, useEffect } from "react";
 
 const Result: React.FC = () => {
 
     const userData = useSelector((state: RootState) => state.userReducer)
+    const [feedBackMsg, setFeedBackMsg] = useState<string>("")
     const navigate = useNavigate()
 
     const handleSave = (): void => {
@@ -43,6 +45,20 @@ const Result: React.FC = () => {
     const handleRetakeQuiz = () : void => {
         navigate("/questions")
     }
+
+    useEffect(()=>{
+      if (userData.score === 0) {
+        setFeedBackMsg ("Not a good score! Try harder next time.")
+      } else if (userData.score <= 5) {
+        setFeedBackMsg ("You can do better! Keep practicing.")
+      } else if (userData.score <= 8) {
+        setFeedBackMsg ("Good job! You're getting there.")
+      } else if (userData.score < 10) {
+        setFeedBackMsg ("Great score! Just a little more to go.")
+      } else {
+        setFeedBackMsg ("Wow, you are truely a quiz master!")
+      }
+    },[userData.score])
       
 
     return(
@@ -68,7 +84,7 @@ const Result: React.FC = () => {
                         <h3>TIME</h3>
                     </div>
                 </div>
-                <p>Thanks for taking part in our amazing quiz!</p>
+                <p>{feedBackMsg}</p>
             </div>
             <div className="controls">
                 <button onClick={handleSave}>Save as image</button>
