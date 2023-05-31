@@ -23,6 +23,7 @@
     background-color: var(--primaryColor);
     display: flex;
     border-radius: 5px;
+    height: 45px;
 }
 
 .inputArea input{
@@ -47,4 +48,6 @@
     padding: 0 20px;
     cursor: pointer;
     border-radius: 0 5px 5px 0;
+    height: 45px;
+    margin: 0;
 }
