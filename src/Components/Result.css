@@ -11,6 +11,7 @@
 
 .Result a{
     font-size: var(--smallText);
+    margin-bottom: 50px;
 }
 
 #card{
