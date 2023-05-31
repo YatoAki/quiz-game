@@ -28,6 +28,7 @@ const QSection: React.FC = () => {
     const [length, setLength] = useState<number>(0)
     const [currentQuestion, setCurrentQuestion ] = useState<number>(0)
     const questionData = useSelector((state:RootState) => state.quizReducer )
+    const userData = useSelector((state: RootState) => state.userReducer)
     const [delay, setDelay] = useState<boolean>(false)
     const [questionList, setQuestionList] = useState<Question []>(dataFile)
 
@@ -60,7 +61,11 @@ const QSection: React.FC = () => {
         dispatch(setDuration(10))
         dispatch(setChoices(questionList[currentQuestion].choices))
         dispatch(setCorrectAnswer(questionList[currentQuestion].correct_answer))
-    },[currentQuestion, dispatch, questionList])
+        // eslint-disable-next-line
+    },[currentQuestion])
+
+    useEffect(() => {
+    }, [questionData]);
 
     // Start the timer
     useEffect(()=> {
@@ -74,20 +79,20 @@ const QSection: React.FC = () => {
     },[questionData.duration, dispatch])
 
     useEffect(() => {
-        if (questionData.duration < 0) {
+        if (questionData.duration <= 0 && userData.isQuiz) {
           handleQuestionSkip();
         }
         // eslint-disable-next-line
-    }, [questionData.duration]);
+    }, [questionData]);
       
     
     const handleQuestionSkip = () => {
+        dispatch(increaseTotalDuration(questionData.duration));
         if (currentQuestion < length - 1) {
           setCurrentQuestion(currentQuestion + 1);
-          dispatch(increaseTotalDuration(questionData.duration + 1));
         } else {
-          navigator("/result");
           dispatch(finishQuiz())
+          navigator("/result");
         }
     };
 
@@ -117,6 +122,7 @@ const QSection: React.FC = () => {
             if (currentQuestion < length - 1) {
               setCurrentQuestion(currentQuestion + 1);
             } else {
+              dispatch(finishQuiz())
               navigator("/result");
             }
             setDelay(false);
