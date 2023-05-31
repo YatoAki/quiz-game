@@ -7,6 +7,11 @@
 
 .Result h1{
     color: var(--secondaryColor);
+    margin: 0;
+}
+
+.Result .resultSubheading{
+    margin: 0 0 30px 0;
 }
 
 .Result a{

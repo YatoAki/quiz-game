@@ -48,7 +48,7 @@ const Result: React.FC = () => {
     return(
         <div className="Result">
             <h1>Quiz Game</h1>
-            <p>You have completed the quiz!</p>
+            <p className="resultSubheading">You have completed the quiz!</p>
             <div id="card">
                 <div className="cardHeader">
                     <h2>Congratulation!</h2>
