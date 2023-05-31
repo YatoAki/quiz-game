@@ -3,8 +3,18 @@
 Answer a randomized set of questions and get an achievement card based on your score.
 
 ### Link
-
 You can find the deployed version of the Quiz Game [here](https://yatoaki.github.io/quiz-game/).
+
+## Technologies Used
+
+The Quiz Game project utilizes the following technologies:
+
+- React
+- TypeScript
+- Redux
+
+Figma is also used to design the webpage UI with UX in mind.<br>
+Check out the figma file [here](https://www.figma.com/file/CxLyz5VIeHXdZZMgE5rljp/Quiz-Game?type=design&node-id=0%3A1&t=gM8y8ho4goD8flno-1).
 
 # How to start the Project locally
 
