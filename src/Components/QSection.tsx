@@ -10,6 +10,18 @@ import { ChoicesState } from "../reducers/quizReducer";
 import { useNavigate } from "react-router-dom";
 import "./QSection.css"
 
+interface Choice {
+  id: string;
+  value: string;
+}
+
+interface Question {
+  id: string;
+  question: string;
+  choices: Choice[];
+  correct_answer: string;
+}
+
 
 const QSection: React.FC = () => {
 
@@ -17,12 +29,23 @@ const QSection: React.FC = () => {
     const [currentQuestion, setCurrentQuestion ] = useState<number>(0)
     const questionData = useSelector((state:RootState) => state.quizReducer )
     const [delay, setDelay] = useState<boolean>(false)
+    const [questionList, setQuestionList] = useState<Question []>(dataFile)
 
     const dispatch = useDispatch()
     const navigator = useNavigate()
+    
+    const shuffleArray = (array: any[]) => {
+      const shuffledArray = [...array];
+      for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+      }
+      return shuffledArray;
+    };
 
     // Fetch the data from data.json
     useEffect(()=> {
+        setQuestionList(shuffleArray(questionList))
         setLength(dataFile.length)
         dispatch(startQuiz())
         dispatch(resetScore())
@@ -32,12 +55,12 @@ const QSection: React.FC = () => {
 
     // Setup data for each question
     useEffect(()=> {
-        dispatch(setQuestion(dataFile[currentQuestion].question))
+        dispatch(setQuestion(questionList[currentQuestion].question))
         dispatch(setNo(currentQuestion))
         dispatch(setDuration(10))
-        dispatch(setChoices(dataFile[currentQuestion].choices))
-        dispatch(setCorrectAnswer(dataFile[currentQuestion].correct_answer))
-    },[currentQuestion, dispatch])
+        dispatch(setChoices(questionList[currentQuestion].choices))
+        dispatch(setCorrectAnswer(questionList[currentQuestion].correct_answer))
+    },[currentQuestion, dispatch, questionList])
 
     // Start the timer
     useEffect(()=> {
